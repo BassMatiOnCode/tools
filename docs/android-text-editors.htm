@@ -1,0 +1,427 @@
+<html encoding="UTF-8">
+<head>
+<style>
+main {
+	margin-left: 20px;
+	}
+ul.check-list {
+	list-style-type: none ;
+	padding: 0px ;
+	}
+ul.check-list li {
+	margin-left: 1em ;
+	}
+ul.check-list :not([empty]):not([cross]):not([check]) {
+	margin-top: 10px ;
+	}
+ul.check-list [empty]:before {
+	content: "\2610\2002" ;
+	}
+ul.check-list [cross]:before {
+	content: "\2611\2002" ;
+	}
+ul.check-list [check]:before {
+	content: "\2612\2002" ;
+	}
+</style>
+</head><body><main>
+
+<h1 cbc>Android Text and Programming Editors</h1>
+
+<p class="abstract">There are a number of text and programming editors available for Android. I have tried a few, but still haven't found the perfect one. Admittedly, creating the perfect editor is not easy. Preferences and working style changes, depending on situation, purpose and file type. However, I found that many features of present editors could have been implemented better.</p>
+
+<h2 cbc>Some Initial Thoughts</h2><div>
+
+<p>Let's start with the typing experience. A programmer usually does three things: think, type, and drink coffee. On a physical keyboard, when writing with all ten fingers resting on the keys, ideally, every editor function can be invoked by a shortcut sequence, such as ctrl-c and ctrl-v for copy and paste. The hand does not move much, every key can be reached by stretching and flexing some fingers. The palms rest on the table, eyes rest on the screen, reading the text and detect typing errors instantly. This is a very relaxed but still efficient way of entering text, and, after some practice, becomes a a second nature to the programmer. One can type, read and think at the same time.</p>
+
+<p>On-screen keyboards are different, because they do not provide neither the nesessary physical dimensions, nor the tactile feedback of physical keyboards. Character sets are incomplete and distributed over multiple pages. Fly-out picklists can ease the situation, but tend to be incomplete for programmers, and long-taps slow down typing.</p>
+
+<p>Thumbs, primarily used for typing, can effectively reach only the lower portion of the screen. Interactions with the upper portions requires change of hand position and thus disturbs the workflow of typing.</p>
+
+<p>Limited screen space is a problem. Some apps waste it with GUI elements with limited benefit, such as menu bars with seldom used functions, tab strips, file information bars, et cetera.</p>
+
+<p>Precision taps and drags with fingers are impossible. As a result, positioning the text caret or selecting text is a pain in the where we usually sit on&hellip; A pen can help here, but a pen is really not so good for typing program texts.</p>
+
+<p><i>Tap efficiency</i>: The overall number of taps and the time to achieve the task should be reduced to a minimum. Frequently used functions must be reached fast with fewer taps, seldomly used function may require more taps and should be hidden in sub-menus. Similarly, often used special characters which cannot be used directly with the on-screen keyboard should be made more accessible.</p>
+
+<p><i>Automatisms</i>: Some apps "support" the authors with "intelligent" features &ensp; automatically inserted text ("completion"), selection lists, text snippets, whatever, all over the place. But automatism is a double-edged sword. On one side it can reduce typing, save time and avoid errors, but in reality the user often has to skip over &ndash; or even delete &ndash; automatically generated text, or interrupt typing to pick some suggestion from a list. Plus the individual preferences differ between users. It quickly becomes obvious, that a good automatism is not an easy thing to implement.</p>
+
+<p>Despite all these limitations, it should be possible to create a good user interface. But reality is different. Many apps appear quite visually attractive at first, but after some time of use, a feeling that things could have been solved better, arises.</p>
+
+<p>In the following, I have gathered a number of requirements for a good text editor, sort of. The I will discuss a number of specific apps, and how they fulfill my requirements, or not.</p>
+
+<!--h2--></div>
+
+<h2 cbc>The Perfect Text Editor</h2><div>
+
+<p>This section carries an informal requirement collection for the perfect text and programming editor.</p>
+
+<h3>General Requirements</h3><div>
+
+<p><i>Configurable layout</i>: The user must be able to configure toolbars and informational panels, and their visibility according to his preferences.</p>
+<p><i>Focus on editing</i>: A text editor should not integrate functionality just to "have it on the list", like project management, compilers, web servers, preview renderes, learning functions and the like. There are always external tools that can do the job better.</p> 
+<!--h3--></div>
+
+<h3>File Access</h3><div>
+<p>Access to files is restricted on Android (as well as other mobile operating systems). However, the abilitiy to edit arbitrary files is quite important.</p>
+<p><i>Memory and storage:</i> Access to internal and SD card memory is essential. Opening files from a file manager app should be supported. Cloud storage is very welcomed because it facilitates synchronization across multiple devices.</p>
+<p><i>Version control systems:</i> GIT, SVN and other version control protocols are <i>very</i> welcomed by most prgrgrammers.</p>
+<p><i>Auto save:</i> Changes should be saved automatically. Unsaved texts should be restored completely in the next session, without loosing changes, even across device shutdowns (an immenent danger on battery-powered devices). If a program cannot ensure this, a save button must be present at a prominent screen location.</p>
+<p><i>Read-only</i>: Nice feature, but not always required.</p>
+</div>
+
+<h3>Screen Usage</h3><div>
+<p><i>Screen layout:</i> Typing on a smartphone can be fun and effective. Small size and low weight make it possible to write wherever you walk, stand or sit. On the other hand, screen space is limited. The text area should be as large as possible. UI elements should be used sparingly while allowing quick access to frequently used features at the same time &ndash; of course, somewhat contradicting requirements.</p>
+<p><i>Toolbars:</i> IMHO, the best UI compromise is a single, permanent, horizontally scrollable and configurable (!) primary toolbar right above the on-screen keyboard, with buttons to access features, insert text snippets and open secondary toolbars with more infrequently used features. An informational secondary toolbar, showing the file name and path and some file statistics would is a must. Configurable button size would also be nice. Even dropdown menus could be integrated in such a layout system.</p>
+<p><i>Configurable toolbars:</i> I haven't yet found such a feature in an editor app, but that would be a <i>killer</i>. If the user could arrange features in primary and secondary toolbars, and then organize them in themes and/or bound to file types, then most problems and peculiarities are solved, once and forever.</p>
+<p><i>Font size and colors:</i> Adjustments are essential, due to differences in device screen size, resolution and environment brightness. Yet better if organized in themes.</p>
+<!--h3--></div>
+
+<h3>On-Screen Keyboard</h3><div>
+<p><i>Advanced system keyboard features:</i> The operating system usually provides a very good on-screen keyboard, packed with all kinds of features which make typing easier, such as  alternative characters on each key, word suggestions, auto-correction, swipe input, text caret positioning, et cetera. It is important that these capabilities remain available in the editor program. A text editor should not attempt to re-implement these features in an integrated keyboard.</p>
+<p><i>Alternative on-screen keyboards:</i> Third-party keyboards should be possible and fully supported.</p>
+<p><i>Showing the on-screen keyboard:</i> On most handheld devices, the on-screen keyboard can be hidden to maximize the text area. This keyboard is usually brought up with a tap on the text area. A good text editor should keep the text caret position in this situation, because most of the time the text caret is already in the correct position, and repositioning is often not an easy task on handhelds.</p>
+<p>At least one editor has a tool button to bring up the on-screen keyboard. Not a perfect approach, but quite useful.</p>
+</div>
+
+<h3>External Keyboards</h3><div>
+<p>An external Bluetooth or USB keyboard should be supported (this is actually not always the case!). Arrow, paging, shift, control, tab, context and function keys should be supported. Text selection witch shift, control and arrow keys should be possible, as well as cut, copy and paste shortcuts. And the keyboard language should be respected. Some users find it difficult to have a US english layout on a german keyboard for instance.</p>
+<!--h3--></div>
+
+<h3>Text Input</h3><div>
+<p><i>Text caret positioning</i> is difficult on small touchscreen devices. So a set of cursor keys (up, down, left, right, in addition to the native on-screen spacebar swipe feature) would be nice.</p>
+<p><i>Word wrap:</i> Long text lines must be wrapped to the next line at the right border of the screen. If this feature is not present, writing is still possible, but reading text is more or less imoossible. Manual insertion of line breaks binds the file to a specific device format, switching from desktop to handhelds and vice versa will degrade user experience.</p>
+<p><i>Indentation:</i> Indentation is often used for text structuring. Automatic indentation is welcomed, but must be flexible enough to follow the author's needs. A good compromise copies the whitespace characters of the previous line to the new line. This allows an author to choose the indentation method and amount on the fly.</p>
+<p>Programmers might prefer rule-based automatic indentation with tabs or space characters.</p>
+<p><i>Cut, copy and paste:</i> Most text editors provide "pins" for text selection and caret positioning (a standard for touchscreen devices), but handling on small devices, especially near the screen border, is actually rather difficult, especially in a moving and unsteady environment. So the editor app should support a "start selection" tool button in combination with arrow keys to position the pins, combined with cut, copy and paste buttons.</p>
+<p><i>Text snippets:</i> A good method to speed up composition of text. Programmers will love this feature. Of course, snippet repositories must be configurable and editable. And, not to forget, the caret position after insertion must be definable.</p>
+<p><i>Search and replace:</i> A must for every text editor. Wildcard support is a must, regular expression support is highly requested.</p>
+<!--h3--></div>
+
+<h3>Programming Languages Support</h3><div>
+<p>Brackets, parentheses and delimiters often come in matching pairs. Some Programmers like the automatic insertion of matching elements, some don't. The program should support both. In every case, these characters should be accessible on the primary toolbar.</p>
+<p>As already mentioned, text snippets are a must. Creating often used programming constructs can then be sped up with snippets. Note that the text caret position after insertion must be definable, because the need for manual positioning could easily render the benefit of snippets useless.</p>
+<!--h3--></div>
+
+<h3>Html Editing</h3><div>
+<p>Writing HTML requires frequent insertion of tags and attributes. Tags often come in pairs, &lt;start&gt; and &lt;/end&gt; tags. Tag attributes are written as name="value" pairs. The on-screen keyboard usually does not provide quick access to the necessary special characters, so the editor should make them available on a primary toolbar. Ideally, configurable, of course.</p>
+<p>Such a quick access to special characters makes HTML editing fun and straight-forward, but editor programs could go one step further. For example, closing tags can easily be generated automatically. Some users prefer automatic generation of closing tags when the closing angle bracket of the start tag is entered. This way, the closing tag cannot be forgotten. Others prefer to trigger insertion of an end tag manually, after the element content has been written. This way, an author does not have to position the text caret behind the closing tag manually. Ideally, the editor should support both methods and let the user decide on the right one on-the-fly.</p>
+
+<p>Some editors present text snippets in (filtered) dropdown lists or tool bars to pick the desired HTML element. I don't think that this is a good idea, because it is usually much faster to type a few letters than to scroll through lists and pick an entry. </p>
+<p>Frequent positioning the text caret back to the left, or even the need to delete spriately generated text, quickly becomes an annoyance. So the editor program should not automatically insert a closing angle bracket on a start tag, because element attributes might have to be added first. </p> 
+<!--h3--></div>
+
+<!--h2--></div>
+
+<h2 cbc>AnWriter Free</h2><div>
+<p>Overall impression is ok. Some essential functions are missing, for example, word suggestions of the native on-screen keyboard and swipe input.</p>
+
+<h3>Files</h3><div>
+<ul>
+<li rate="-">Cannot open files on SD card</li>
+<li rate="-">Cannot save to cloud storage.</li>
+<li rate="+">Supports FTP.</li>
+</ul>
+<!--h3--></div>
+
+<h3>Display Layout</h3><div>
+<ul>
+<li>Tool button strip above on screen keyboard allows access to a few charcters and tools for programming.</li>
+<li>Long lines don't wrap at the right margin.</li>
+<li rate="+">Main menu at the top of the screen can easily be shown and hidden.</li>
+<li rate="-">Colors cannot be customized. Dark theme only.</li>
+</ul>
+<!--h3--></div>
+
+<h3>Keyboard Input</h3><div>
+<ul>
+<li rate="-">No swipe text input</li>
+<li rate="-">Spacebar swipe caret navigation Does not work properly.</li>
+<li rate="n">Caret navigation easily accessible. This compensates the functionality of the native keyboard.</li> 
+<li rate="-">No native typo correction or word suggestions.</li>
+<li rate="+">Large Text selection markers.</li>
+<li rate="+">Additional text selection method with cursor buttons works great.</li>
+<li rate="+">Cut, copy and paste available in the main menu.</li>
+</ul>
+<!--h3--></div>
+
+<h3>HTML Editing</h3><div>
+<ul>
+<li rate="+">Semi-automatic tag comletion. A toolbar button inserts the correct closing tag.</li>
+<li rate="n">Tag suggestion list works well and appends the closing angle bracket.</li>
+<li rate="-">Closing angle bracket is inserted automatically if the suggestion list conains only one element.</li>
+<li rate="+">HTML preview uses OS based HTML viewer.</li>
+</ul>
+<!--h3--></div>
+<!--h2--></div>
+
+<h2 cbc>Quoda</h2><div>
+
+<h3>Files</h3><div>
+<p>Contras</p>
+<ul class="contra">
+<li>Cannot open files in internal memory</li>
+</ul>
+<!--h3--></div>
+<!--h2--></div>
+
+<h2>TrebEdit</h2><div>
+		
+<h3>Files</h3><div>
+<ul>
+<li>+ Autosave. Interval duration adjustable?</li>
+<li>+ Can save to SD card.</li>
+<li>? Workspace concept. A folder acts as project  workspace.</li>
+<li>+ Can have muliple files opened. The file are accessible in a tab strip at the top.</li>
+<li>- Tab strip cannot be hidden.</li>
+</ul>
+<!--h3--></div>
+
+<h3>Colors and Themes</h3><div>
+<ul>
+<li>- Dark themes only, make it difficult to wirite in very bright environments </li>
+<li>+ Syntax highlighting can be turned off.</li>
+<li>+ Auto-indent can be turned off.</li>
+<li>+ Auto-indent respects the previvous line.</li>
+<li>- Text caret color is not bright enough for bright environments.</li>
+<li>+ Adjustable font size.</li>
+</ul>
+<!--h3--></div>
+
+<h3>Keyboard and Typing</h3><div>
+<ul>
+<li>+ Undo and redo.</li>
+<li>- No word suggestions from the autocomplete feature.</li>
+<li>+ Swipe input is supported, but word-suggestions are not available.</li>
+<li>+ Caret can be positioned horizontally with spacebar swipe.</li>
+<li>- No additional caret positioning aids like up, down, left, right and shift.</li>
+<li>- No aids for selecting text. Only the typical anchor pins are available.</li>
+</ul>
+<!--h3--></div>
+
+<h3>Text Formatting</h3><div>
+<ul>
+<li></li>
+</ul>
+<!--h3--></div>
+
+<h3>Html Editing</h3><div>
+<ul>
+<li>+ Quick access to angle brackets, tab, and other important syntax elements in a horizontal panel. The panel can be scrolled horizontally.</li>
+<li>- Additional tags can be picked from an additional drawer. The content can be switched between HTML, CSS an JavaScript.</li>
+<li>+ Simple tag completion.</li>
+</ul>
+<!--h3--></div>
+<!--h2--></div>
+
+<h2>Quick Edit</h2><div>
+
+<h3>Appearance</h3><div>
+<ul>
+<li>+ Light theme makes editing in bright environments easier.</li>
+<li>- Autosave shows advertisements.</li>
+</ul>
+</div>
+
+<h3>Features</h3><div>
+<ul>
+<li>Autosave interval off or 0.5 to 10 minutes.</li>
+<li>- Advertisements when saving files</li>
+<li>+ Undo and redo</li>
+<li>+ Text search and replace function supports regular expressions.</li>
+<li>+ Syntax highlighting can be turned off.</li>
+<li>+ Help via web page.</li>
+</ul>
+</div>
+
+<h3>Files</h3><div>
+<ul>
+<li>+ Can save to SD card</li>
+<li>+ Can access internal storage, SD card and cloud storage providers.</li>
+<li>+ Can open mutiple files.</li>
+<li>- Tab strip with filenames at the top cannot be hidden.</li>
+<li>Can use SAF file managers to open files from cloud or storage providers<li/>
+
+<li>- Looses unsaved changes when device is turned off.</li>
+<li>+  File reload function</li>
+</ul>
+<!--h3--></div>
+
+<h3>Text Input and Keyboard</h3><div>
+<ul>
+<li>+ Swipe input</li>
+<li>+ Autocomplete suggestions</li>
+<li>- Additional keyboard toolbar with frequently used characters such as brackets, parentheses, punctuation and special characters, scrolls horizontal.</li>
+<li>- No arrow, shift or control keys to support caret navigation and text selection.</li>
+<li>+ Paste function via menu.</li>
+</ul>
+<!--h3--></div>
+
+<h3>Html Support</h3><div>
+<ul>
+<li>+ Syntax highlighting</li>
+<li>n Closing tags must be entered manually. Not so critical, because angular brackets are easily accessible in the keyboard toolbar.</li>
+<li>n No HTML preview.<li/>
+</ul>
+<!--h3--></div>
+<!--h2--></div>
+
+<h2 cbc>Editor</h2><div>
+
+<h3>General Features</h3><div>
+
+<ul class="check-list">
+<li empty>Project management</li>
+<li empty>Compiler integration</li>
+<li empty>Open source</li>
+</ul>
+
+<!--h3--></div>
+
+<h3>Files and Storage</h3><div>
+
+<ul class="check-list">
+<li>Can open</li>
+<li empty>multiple files</li>
+<li empty>auto-save</li>
+<li empty>read-only</li>
+<li>Access to</li>
+<li empty>internal memory</li>
+<li empty>SD card(s)</li>
+<li>Cloud storage</li>
+<li empty>Google Drive</li>
+<li empty>OneDrive</li>
+<li empty>Dropbox</li>
+<li empty>Box</li>
+<li empty>iCloud</li>
+<li>Version control systems</li>
+<li empty>Git</li>
+<li empty>SVN</li>
+<li>Text encoding</li>
+<li empty>UTF-8</li>
+<li empty>others</li>
+<li empty>unspecified</li>
+</ul>
+
+<!--h3--></div>
+
+<h3>Screen Layout</h3><div>
+
+<ul class="check-list">
+<li empty>Burger menu button</li>
+<li empty>Top menu bar or buttons</li>
+<li empty>Tab strip</li>
+<li empty>Primary toolbar</li>
+<li empty>Secondary toolbars</li>
+<li empty>configurable</li>
+<li empty>Floating (semi-)transparent buttons</li>
+</ul>
+
+<!--h3--></div>
+
+<h3>On-Screen Keyboard</h3><div>
+
+<ul class="check-list">
+<li>Advanced system keyboard features</li>
+<li empty>word suggestions</li>
+<li empty>auto-correction</li>
+<li empty>swipe input</li>
+<li empty>text caret positioning swiping the space bar</li>
+<li empty>alternative character pop-ups</li>
+<li empty>alternative on-screen keyboard support</li>
+<li empty>first tap to show the on-screen keyboard does change caret position</li>
+<li empty>Show on-screen keyboard toolbar button</li>
+</ul>
+
+<!--h3--></div>
+
+<h3>External Keyboards</h3><div>
+
+<ul class="check-list">
+<li>External keyboard</li>
+<li empty>supported</li>
+<li empty>keyboard language respected</li>
+<li>Supported keys</li>
+<li empty>shift</li>
+<li empty>control</li>
+<li empty>alt</li>
+<li empty>function keys</li>
+<li empty>up, down, left, right</li>
+<li empty>page up, page down, home, end</li>
+<li empty>ctrl-x, ctrl-c, ctrl-v</li>
+</ul>
+
+<!--h3--></div>
+
+<h3>Text Input</h3><div>
+
+<ul class="check-list">
+<li>Caret positioning toolbar buttons</li>
+<li empty>left</li>
+<li empty>right</li>
+<li empty>up</li>
+<li empty>down</li>
+<li>Clipboard toolbar buttons</li>
+<li empty>cut</li>
+<li empty>copy</li>
+<li empty>paste</li>
+<li>Indentation</li>
+<li empty>none</li>
+<li empty>deactivated</li>
+<li empty>semi-automatic, copied from previous line</li>
+<li empty>automatic, rule-based</li>
+<li>Word-wrap</li>
+<li empty>no</li>
+<li empty>always</li>
+<li empty>configurable</li>
+<li>Text snippets</li>
+<li empty>available</li>
+<li empty>configurable</li>
+<li empty>caret position configurable</li>
+<li>Search and replace</li>
+<li empty>not available</li>
+<li empty>wildcards</li>
+<li empty>regular expressions</li>
+</ul>
+
+<!--h3--></div>
+<h3>Programming Languages Support</h3><div>
+
+<ul class="check-list">
+<li>Automatic</li>
+<li empty>delimiter completion</li>
+<li empty>bracket and parentheses completion</li>
+<li>snippet insertion for often used programming constructs</li>
+<li empty>supported</li>
+<li empty>configurable</li>
+<li>syntax highlighting</li>
+<li empty>supported</li>
+<li empty>configurable</li>
+<li>Compiler integration</li>
+<li empty>internal</li>
+<li empty>external</li>
+<li empty>compile errors and warnings indicators</li>
+<li>Other features</li>
+<li empty>object member selection lists</li>
+<li empty>function parameter selection lists</li>
+<li empty>jump to declaration</li>
+</ul>
+
+<!--h3--></div>
+
+<h3>HTML Support</h3><div>
+
+<ul class="check-list">
+<li>Tag input</li>
+<li empty>no support, on-screen keyboard must be used</li>
+<li empty>manual with quick access to special characters</li>
+<li empty>semi-automatic, tool button triggers closing tag insertion</li>
+<li empty>right angle bracket automatically generates closing tag</li>
+<li>Tag attribute input</li>
+<li empty>cleanly supported (i. e. start tags not closed prematurely)</li>
+</ul>
+
+<!--h3--></div>
+<!--h2--></div>
+
+</main></body></html>
